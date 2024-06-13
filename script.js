@@ -69,6 +69,11 @@ function createPool() {
     const width = parseFloat(document.getElementById('width').value);
     const height = parseFloat(document.getElementById('height').value);
 
+    if (isNaN(length) || isNaN(width) || isNaN(height)) {
+        alert('Please enter valid numbers for all dimensions.');
+        return;
+    }
+
     // Create pool geometry and material
     const poolGeometry = new THREE.BoxGeometry(length, height, width);
     const poolMaterial = new THREE.MeshPhongMaterial({ color: 0x1E90FF, transparent: true, opacity: 0.8 });
