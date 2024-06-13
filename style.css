@@ -1,7 +1,44 @@
 body {
     margin: 0;
     overflow: hidden;
+    font-family: Arial, sans-serif;
 }
+
+#input-form {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 10;
+}
+
+#input-form label {
+    display: block;
+    margin-top: 5px;
+}
+
+#input-form input {
+    margin-bottom: 10px;
+    width: 100px;
+}
+
+#input-form button {
+    display: block;
+    width: 100%;
+    padding: 5px;
+    background: #1e90ff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#input-form button:hover {
+    background: #1c86ee;
+}
+
 #container {
     width: 100vw;
     height: 100vh;

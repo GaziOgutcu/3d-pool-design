@@ -15,12 +15,8 @@ const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.getElementById('container').appendChild(renderer.domElement);
 
-// Adding a simple rectangular pool
-const poolGeometry = new THREE.BoxGeometry(10, 2, 5); // length, height, width
-const poolMaterial = new THREE.MeshBasicMaterial({ color: 0x1E90FF });
-const pool = new THREE.Mesh(poolGeometry, poolMaterial);
-pool.position.y = -1; // Move pool down to sit on the ground
-scene.add(pool);
+// Adding OrbitControls
+const controls = new THREE.OrbitControls(camera, renderer.domElement);
 
 // Adding ground
 const groundGeometry = new THREE.PlaneGeometry(20, 20);
@@ -36,7 +32,7 @@ camera.lookAt(0, 0, 0);
 // Animation loop
 function animate() {
     requestAnimationFrame(animate);
-
+    controls.update();
     renderer.render(scene, camera);
 }
 animate();
@@ -47,3 +43,27 @@ window.addEventListener('resize', () => {
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
 });
+
+// Function to create pool based on user input
+function createPool() {
+    // Remove existing pool if any
+    const existingPool = scene.getObjectByName('pool');
+    if (existingPool) {
+        scene.remove(existingPool);
+    }
+
+    // Get user input values
+    const length = parseFloat(document.getElementById('length').value);
+    const width = parseFloat(document.getElementById('width').value);
+    const height = parseFloat(document.getElementById('height').value);
+
+    // Create pool geometry and material
+    const poolGeometry = new THREE.BoxGeometry(length, height, width);
+    const poolMaterial = new THREE.MeshBasicMaterial({ color: 0x1E90FF });
+    const pool = new THREE.Mesh(poolGeometry, poolMaterial);
+    pool.position.y = -height / 2; // Move pool down to sit on the ground
+    pool.name = 'pool';
+
+    // Add pool to the scene
+    scene.add(pool);
+}
