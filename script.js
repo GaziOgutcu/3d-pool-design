@@ -84,4 +84,15 @@ function createPool() {
     }
 
     // Create pool geometry and material
-    const poolGeometry = new THREE.BoxGeometry(length, height,
+    const poolGeometry = new THREE.BoxGeometry(length, height, width);
+    const poolMaterial = new THREE.MeshPhongMaterial({ color: 0x1E90FF, transparent: true, opacity: 0.8 });
+    const pool = new THREE.Mesh(poolGeometry, poolMaterial);
+    pool.position.y = -height / 2; // Move pool down to sit on the ground
+    pool.name = 'pool';
+    pool.castShadow = true;
+    pool.receiveShadow = true;
+
+    // Add pool to the scene
+    scene.add(pool);
+    console.log("Added new pool");
+}
