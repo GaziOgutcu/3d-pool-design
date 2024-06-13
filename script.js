@@ -58,20 +58,26 @@ window.addEventListener('resize', () => {
 
 // Function to create pool based on user input
 function createPool() {
-    // Remove existing pool if any
-    const existingPool = scene.getObjectByName('pool');
-    if (existingPool) {
-        scene.remove(existingPool);
-    }
+    console.log("Create Pool button clicked");
 
     // Get user input values
     const length = parseFloat(document.getElementById('length').value);
     const width = parseFloat(document.getElementById('width').value);
     const height = parseFloat(document.getElementById('height').value);
 
+    console.log("Length:", length, "Width:", width, "Height:", height);
+
+    // Validate inputs
     if (isNaN(length) || isNaN(width) || isNaN(height)) {
         alert('Please enter valid numbers for all dimensions.');
         return;
+    }
+
+    // Remove existing pool if any
+    const existingPool = scene.getObjectByName('pool');
+    if (existingPool) {
+        scene.remove(existingPool);
+        console.log("Removed existing pool");
     }
 
     // Create pool geometry and material
@@ -85,4 +91,5 @@ function createPool() {
 
     // Add pool to the scene
     scene.add(pool);
+    console.log("Added new pool");
 }
