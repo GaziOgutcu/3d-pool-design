@@ -19,11 +19,23 @@ document.getElementById('container').appendChild(renderer.domElement);
 const controls = new THREE.OrbitControls(camera, renderer.domElement);
 
 // Adding ground
-const groundGeometry = new THREE.PlaneGeometry(20, 20);
-const groundMaterial = new THREE.MeshBasicMaterial({ color: 0x228B22 });
+const groundGeometry = new THREE.PlaneGeometry(50, 50);
+const groundTexture = new THREE.TextureLoader().load('https://threejs.org/examples/textures/grasslight-big.jpg');
+const groundMaterial = new THREE.MeshPhongMaterial({ map: groundTexture });
 const ground = new THREE.Mesh(groundGeometry, groundMaterial);
-ground.rotation.x = - Math.PI / 2; // Rotate to make it horizontal
+ground.rotation.x = -Math.PI / 2; // Rotate to make it horizontal
+ground.receiveShadow = true;
 scene.add(ground);
+
+// Adding ambient light
+const ambientLight = new THREE.AmbientLight(0x404040);
+scene.add(ambientLight);
+
+// Adding directional light
+const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+directionalLight.position.set(10, 20, 10);
+directionalLight.castShadow = true;
+scene.add(directionalLight);
 
 // Positioning the camera
 camera.position.set(15, 10, 15);
@@ -59,10 +71,12 @@ function createPool() {
 
     // Create pool geometry and material
     const poolGeometry = new THREE.BoxGeometry(length, height, width);
-    const poolMaterial = new THREE.MeshBasicMaterial({ color: 0x1E90FF });
+    const poolMaterial = new THREE.MeshPhongMaterial({ color: 0x1E90FF, transparent: true, opacity: 0.8 });
     const pool = new THREE.Mesh(poolGeometry, poolMaterial);
     pool.position.y = -height / 2; // Move pool down to sit on the ground
     pool.name = 'pool';
+    pool.castShadow = true;
+    pool.receiveShadow = true;
 
     // Add pool to the scene
     scene.add(pool);
