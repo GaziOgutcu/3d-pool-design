@@ -1,3 +1,6 @@
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.module.js';
+import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.128.0/examples/jsm/controls/OrbitControls.js';
+
 // Setting up the scene
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x87ceeb); // Sky blue background
@@ -16,7 +19,7 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 document.getElementById('container').appendChild(renderer.domElement);
 
 // Adding OrbitControls
-const controls = new THREE.OrbitControls(camera, renderer.domElement);
+const controls = new OrbitControls(camera, renderer.domElement);
 
 // Adding ground
 const groundGeometry = new THREE.PlaneGeometry(50, 50);
@@ -81,15 +84,4 @@ function createPool() {
     }
 
     // Create pool geometry and material
-    const poolGeometry = new THREE.BoxGeometry(length, height, width);
-    const poolMaterial = new THREE.MeshPhongMaterial({ color: 0x1E90FF, transparent: true, opacity: 0.8 });
-    const pool = new THREE.Mesh(poolGeometry, poolMaterial);
-    pool.position.y = -height / 2; // Move pool down to sit on the ground
-    pool.name = 'pool';
-    pool.castShadow = true;
-    pool.receiveShadow = true;
-
-    // Add pool to the scene
-    scene.add(pool);
-    console.log("Added new pool");
-}
+    const poolGeometry = new THREE.BoxGeometry(length, height,
